@@ -1,0 +1,12 @@
+C:\Users\trung\Documents\Visual Studio 2017\SchoolProject\ThesisSourceCode\WebApi_C2C\Web_APIC2C\Web_APIC2CDataAccess\bin\Release\Web_APIC2CDataAccess.dll.config
+C:\Users\trung\Documents\Visual Studio 2017\SchoolProject\ThesisSourceCode\WebApi_C2C\Web_APIC2C\Web_APIC2CDataAccess\bin\Release\Web_APIC2CDataAccess.dll
+C:\Users\trung\Documents\Visual Studio 2017\SchoolProject\ThesisSourceCode\WebApi_C2C\Web_APIC2C\Web_APIC2CDataAccess\bin\Release\Web_APIC2CDataAccess.pdb
+C:\Users\trung\Documents\Visual Studio 2017\SchoolProject\ThesisSourceCode\WebApi_C2C\Web_APIC2C\Web_APIC2CDataAccess\bin\Release\EntityFramework.dll
+C:\Users\trung\Documents\Visual Studio 2017\SchoolProject\ThesisSourceCode\WebApi_C2C\Web_APIC2C\Web_APIC2CDataAccess\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\trung\Documents\Visual Studio 2017\SchoolProject\ThesisSourceCode\WebApi_C2C\Web_APIC2C\Web_APIC2CDataAccess\bin\Release\EntityFramework.xml
+C:\Users\trung\Documents\Visual Studio 2017\SchoolProject\ThesisSourceCode\WebApi_C2C\Web_APIC2C\Web_APIC2CDataAccess\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\trung\Documents\Visual Studio 2017\SchoolProject\ThesisSourceCode\WebApi_C2C\Web_APIC2C\Web_APIC2CDataAccess\obj\Release\Web_APIC2CDataAccess.csprojAssemblyReference.cache
+C:\Users\trung\Documents\Visual Studio 2017\SchoolProject\ThesisSourceCode\WebApi_C2C\Web_APIC2C\Web_APIC2CDataAccess\obj\Release\Web_APIC2CDataAccess.csproj.CoreCompileInputs.cache
+C:\Users\trung\Documents\Visual Studio 2017\SchoolProject\ThesisSourceCode\WebApi_C2C\Web_APIC2C\Web_APIC2CDataAccess\obj\Release\Web_APIC2CDataAccess.csproj.CopyComplete
+C:\Users\trung\Documents\Visual Studio 2017\SchoolProject\ThesisSourceCode\WebApi_C2C\Web_APIC2C\Web_APIC2CDataAccess\obj\Release\Web_APIC2CDataAccess.dll
+C:\Users\trung\Documents\Visual Studio 2017\SchoolProject\ThesisSourceCode\WebApi_C2C\Web_APIC2C\Web_APIC2CDataAccess\obj\Release\Web_APIC2CDataAccess.pdb
