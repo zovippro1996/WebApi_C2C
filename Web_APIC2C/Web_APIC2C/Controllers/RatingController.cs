@@ -29,64 +29,82 @@ namespace Web_APIC2C.Controllers
         }
 
         // POST api/rating
-        public void Post([FromBody]string value)
+        public String Post([FromBody]string value)
         {
-
-
-
-        }
-
-        /***
-         * public int RatingID { get; set; }
-         * public string RatingUserrating { get; set; }
-         * public string RatingUserrated { get; set; }
-         * public double RatingPoint { get; set; }
-         * public System.DateTime RatingDate { get; set; }****/
-        //User will submit His phone , Target Phone , Rating.
-        public string AddRating(Rating currentInput)
-        {
-            String UserRatingPhone = "01285799350";
-            String UserRatedPhone = " 0962518088";
-            using (C2CthesisEntities entities = new C2CthesisEntities())
-            {
-                Rating newRating = new Rating();// make object of table
-                newRating.RatingUserrating = UserRatingPhone;
-                newRating.RatingUserrated = UserRatedPhone;
-                newRating.RatingPoint = 5;
-                newRating.RatingDate = System.DateTime.Now;
-                entities.Ratings.Add(newRating);
-                entities.SaveChanges();
-            }
-
-            return "Done";
-        }
-
-        [ResponseType(typeof(Rating))]
-        public async Task<IHttpActionResult> PostRating(String newRatingString)
-        {
+            //ResultInit return the result of API
+            String resultReturn = "";
 
             String UserRatingPhone = "01285799350";
             String UserRatedPhone = "0962518088";
+            double RatingPoint = 1;
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            Rating newRating = new Rating();// make object of table
+            resultReturn = resultReturn + UserRatingPhone + UserRatedPhone + RatingPoint + "End Init "; 
+
             using (C2CthesisEntities entities = new C2CthesisEntities())
             {
-                
+                resultReturn = resultReturn + " In Using Entity ";
+
+                //Check if User Rating exist in Database
+                if (!entities.Users.Any(o => o.UserPhonenumber.Equals(UserRatingPhone)))
+                {
+                    resultReturn = resultReturn + " Check User Rating exist Db ";
+                    User newRatingUser = new User();
+                    newRatingUser.UserPhonenumber = UserRatingPhone;
+                    newRatingUser.UserPoint = -1;
+                    entities.Users.Add(newRatingUser);
+                }
+
+                //Check if User Rated exist in Database
+                if (!entities.Users.Any(o => o.UserPhonenumber.Equals(UserRatedPhone)))
+                {
+                    resultReturn = resultReturn + " Check User Rated exist Db ";
+                    User newRatedUser = new User();
+                    newRatedUser.UserPhonenumber = UserRatedPhone;
+                    newRatedUser.UserPoint = -1;
+                    entities.Users.Add(newRatedUser);
+                } 
+
+                //Add Rating to Database 
+                Rating newRating = new Rating();
                 newRating.RatingUserrating = UserRatingPhone;
                 newRating.RatingUserrated = UserRatedPhone;
-                newRating.RatingPoint = 5;
+                newRating.RatingPoint = RatingPoint;
                 newRating.RatingDate = System.DateTime.Now;
                 entities.Ratings.Add(newRating);
-                await entities.SaveChangesAsync();
-            }
 
-            return CreatedAtRoute("DefaultApi", new { id = newRating.RatingID }, newRating);
+                double UserRatedPoint = entities.Users.FirstOrDefault(o => o.UserPhonenumber.Equals(UserRatingPhone)).UserPoint;
+
+                entities.SaveChanges();
+                resultReturn = resultReturn + " End Using ";
+            }
+            resultReturn = resultReturn + " Out";
+            return resultReturn;
         }
 
+        //[ResponseType(typeof(Rating))]
+        //public async Task<IHttpActionResult> PostRating(String newRatingString)
+        //{
 
+        //    String UserRatingPhone = "01285799350";
+        //    String UserRatedPhone = "0962518088";
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    Rating newRating = new Rating();// make object of table
+        //    using (C2CthesisEntities entities = new C2CthesisEntities())
+        //    {
+
+        //        newRating.RatingUserrating = UserRatingPhone;
+        //        newRating.RatingUserrated = UserRatedPhone;
+        //        newRating.RatingPoint = 5;
+        //        newRating.RatingDate = System.DateTime.Now;
+        //        entities.Ratings.Add(newRating);
+        //        await entities.SaveChangesAsync();
+        //    }
+
+        //    return CreatedAtRoute("DefaultApi", new { id = newRating.RatingID }, newRating);
+        //}
     }
 }
