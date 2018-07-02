@@ -31,38 +31,55 @@ namespace Web_APIC2C.Controllers
         // POST api/rating
         public String Post([FromBody]string value)
         {
-            //ResultInit return the result of API
+            //Result return the result of API
             String resultReturn = "";
 
-            String UserRatingPhone = "01285799350";
-            String UserRatedPhone = "0962518088";
-            double RatingPoint = 1;
+            //Rating + Rated + Point
+            String[] splitInput = value.Split('*');
 
-            resultReturn = resultReturn + UserRatingPhone + UserRatedPhone + RatingPoint + "End Init "; 
+            String UserRatingPhone = splitInput[0];
+            String UserRatedPhone = splitInput[1];
+            double RatingPoint = Double.Parse(splitInput[2], System.Globalization.CultureInfo.InvariantCulture);
+
+            //String UserRatingPhone = "123";
+            //String UserRatedPhone = "345";        
+            //double RatingPoint = 1;
+
+            User RatedUser = new User();
+
+            resultReturn = resultReturn + " " + UserRatingPhone + " " + UserRatedPhone + " " + RatingPoint.ToString() + " EndInit ";
 
             using (C2CthesisEntities entities = new C2CthesisEntities())
             {
-                resultReturn = resultReturn + " In Using Entity ";
+                //resultReturn = resultReturn + " In Using Entity ";
 
                 //Check if User Rating exist in Database
                 if (!entities.Users.Any(o => o.UserPhonenumber.Equals(UserRatingPhone)))
                 {
-                    resultReturn = resultReturn + " Check User Rating exist Db ";
+                    //resultReturn = resultReturn + " Check User Rating exist Db ";
                     User newRatingUser = new User();
                     newRatingUser.UserPhonenumber = UserRatingPhone;
                     newRatingUser.UserPoint = -1;
                     entities.Users.Add(newRatingUser);
                 }
 
-                //Check if User Rated exist in Database
+                //Check if User Rated not exist in Db
                 if (!entities.Users.Any(o => o.UserPhonenumber.Equals(UserRatedPhone)))
                 {
-                    resultReturn = resultReturn + " Check User Rated exist Db ";
+                    //resultReturn = resultReturn + " Check User Rated exist Db ";
                     User newRatedUser = new User();
                     newRatedUser.UserPhonenumber = UserRatedPhone;
-                    newRatedUser.UserPoint = -1;
+                    newRatedUser.UserPoint = RatingPoint;
                     entities.Users.Add(newRatedUser);
-                } 
+                }
+                else
+                //If User Rated already exist in Db
+                {
+                    RatedUser = entities.Users.FirstOrDefault(o => o.UserPhonenumber.Equals(UserRatedPhone));
+                    resultReturn += "ChangePoint " + RatedUser.UserPoint;
+                    RatedUser.UserPoint = Math.Round((RatedUser.UserPoint + RatingPoint) / 2, 2);
+                    resultReturn += " to " + RatedUser.UserPoint;
+                }
 
                 //Add Rating to Database 
                 Rating newRating = new Rating();
@@ -72,12 +89,10 @@ namespace Web_APIC2C.Controllers
                 newRating.RatingDate = System.DateTime.Now;
                 entities.Ratings.Add(newRating);
 
-                double UserRatedPoint = entities.Users.FirstOrDefault(o => o.UserPhonenumber.Equals(UserRatingPhone)).UserPoint;
-
                 entities.SaveChanges();
                 resultReturn = resultReturn + " End Using ";
             }
-            resultReturn = resultReturn + " Out";
+            resultReturn = resultReturn + "Out";
             return resultReturn;
         }
 
